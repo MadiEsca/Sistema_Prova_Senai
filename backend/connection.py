@@ -4,44 +4,29 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 from datetime import datetime, timezone
 
-load_dotenv() # Carregando o arquivo de .env
+load_dotenv()
 
-# Utilizar try, exception e finally
-# Realizando a conexão com o banco de dados
+# Conexão com o Banco de Dados
 def __server_connection():
+    # Função responsável por realiar a conexão ao banco de dados
     try:
         supabase: Client = create_client(
         os.environ.get("SUPABASE_URL"),
         os.environ.get("SUPABASE_KEY")
         )
-        print("Conexão realizada com sucesso")
+        print("Conexão realizada com sucesso!")
         return supabase
-    except Exception as erro:
-        print(f"Erro ao realiazar a conexão com o banco de dados: {erro}")
-        return erro
+    except Exception as error:
+        print(f"Erro ao realiazar a conexão com o banco de dados: {error}")
+        return error
 
-# Criando as operações CRUD
+# Funções de cadastro e criação
 
-# Operações relacionadas a tabela de produtos
-def create_product(): # Realiza a criação de um produto dentro do sistema
-    supabase = __server_connection()
+def create_product(quantidade, nome, categoria_escolhida, valor_unitario): # Função responsável por criar um produto dentro do sistema
+    supabase = __server_connection() # Realiza a conexão com o banco de dados
     
     try:
-        if supabase: # Funciona apenas se o servidor estiver conectado
-            categorias = ("A","B","C") #Tupla com as categorias aceitas
-
-            #Solicitando as informações a serem acrescentadas no banco de dados
-            quantidade: int = int(input("Digite a quantidade no estoque: "))
-            nome: str = str(input("Digite o nome do produto: "))
-            categoria_escolhida: str = str(input("Digite a categoria (a, b, c): "))
-            valor_unitario: float = float(input("Digite o preço unitário do produto: "))
-
-            #Validação do campo de categoria
-            if categoria_escolhida not in categorias:
-                print("Categoria inválida")
-                print("Selecione uma das seguites categorias: 'A', 'B', 'C'")
-                return Exception("Categoria inválida")
-
+        if supabase: # Verifica se a conexão com o banco de dados funciona
             dados = {
                 "quantidade":quantidade, 
                 "nome": nome, 
@@ -55,10 +40,10 @@ def create_product(): # Realiza a criação de um produto dentro do sistema
                 .execute()
                 )
             
-            register_entrace(quantidade_produto_entrada=quantidade, nome_produto=nome)
+            register_entrace(quantidade_produto_entrada=quantidade, nome_produto=nome) # Registra a entrada dos produtos no estoque
         return response
-    except Exception as erro:
-        print(f"Não funciona, {erro}")
+    except Exception as erro: # Captura o erro gerado, tratado e o retorna
+        print(f"Não funcionou, {erro}")
         return erro
 
 #Lista todos os produtos da tabela
@@ -218,14 +203,14 @@ if __name__ == "__main__":
     print(datetime.now())
     #list_products()
     #register_exits(2, "Raquelly")
-    
+
     # Criar um painel solicitando qual o tipo de funcionalidade que o usuário quer
-    
+
     print("""
           1 - Listar produtos cadastrados no sistema
           2 - Cadastrar um produto no sistema
           3 - Retirar um produto
-    
+
     """)
     escolha: int = int(input("Digite o que você quer fazer: "))
     match escolha:
