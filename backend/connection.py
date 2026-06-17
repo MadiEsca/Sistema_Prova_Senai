@@ -212,33 +212,30 @@ def register_exits(quantidade_produto_saida, nome_produto):
     except Exception as erro:
         print(f"Não foi possível realizar a solicitação pelo seguinte motivo, {erro}")
 
-
-#list_products_categories()
-print(datetime.now())
-#list_products()
-#register_exits(2, "Raquelly")
-
-# Criar um painel solicitando qual o tipo de funcionalidade que o usuário quer
-
-print("""
-      1 - Listar produtos cadastrados no sistema
-      2 - Cadastrar um produto no sistema
-      3 - Retirar um produto
-
-""")
-escolha: int = int(input("Digite o que você quer fazer: "))
-match escolha:
-    case 1:
-        list_products()
-    case 2:
-        create_product()
-    case 3:
-        register_exits()
-    case 4:
-        pass
-    case _:
-        print("Opção inválida")
-
-#
+# Testes de funcionamento do sistema
 if __name__ == "__main__":
-    print("tudo funciona")
+    #list_products_categories()
+    print(datetime.now())
+    #list_products()
+    #register_exits(2, "Raquelly")
+    
+    # Criar um painel solicitando qual o tipo de funcionalidade que o usuário quer
+    
+    print("""
+          1 - Listar produtos cadastrados no sistema
+          2 - Cadastrar um produto no sistema
+          3 - Retirar um produto
+    
+    """)
+    escolha: int = int(input("Digite o que você quer fazer: "))
+    match escolha:
+        case 1:
+            list_products()
+        case 2:
+            create_product()
+        case 3:
+            register_exits()
+        case 4:
+            pass
+        case _:
+            print("Opção inválida")
